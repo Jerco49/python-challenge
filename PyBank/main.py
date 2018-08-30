@@ -6,6 +6,7 @@ total_net = 0
 previous_row = 0
 current_net = 0
 net_changes = []
+net_change_month = []
 total_net_change = 0
 average_change = 0
 greatest_increase = 0
@@ -39,17 +40,28 @@ with open(csv_file, 'r') as text:
         else:
             current_net = int(row[1]) - previous_row
             net_changes.append(current_net)
+            net_change_month.append(row[0])
         
         previous_row = int(row[1])
 
         # Checks each row for the greatest increase and decrease
-        if int(row[1]) > greatest_increase:
-            greatest_increase = int(row[1])
-            greatest_increase_month = row[0]
+        #if int(row[1]) > greatest_increase:
+         #   greatest_increase = int(row[1])
+         #   greatest_increase_month = row[0]
 
-        elif int(row[1]) < greatest_decrease:
-            greatest_decrease = int(row[1])
-            greatest_decrease_month = row[0]
+        #elif int(row[1]) < greatest_decrease:
+         #   greatest_decrease = int(row[1])
+         #   greatest_decrease_month = row[0]
+
+    # Checks each row for the greatest increase and decrease
+    for net in net_changes:
+        if net > greatest_increase:
+            greatest_increase = net
+            greatest_increase_month = net_change_month[net_changes.index(net)]
+
+        elif net < greatest_decrease:
+            greatest_decrease = net
+            greatest_decrease_month = net_change_month[net_changes.index(net)]
 
 # Calculates the average change
 for net in net_changes:
